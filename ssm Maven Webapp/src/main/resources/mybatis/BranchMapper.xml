@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zxl.soft.branch.dao.BranchMapper" >
+  <resultMap id="BaseResultMap" type="com.zxl.soft.branch.entity.Branch" >
+    <id column="branch_id" property="branchId" jdbcType="VARCHAR" />
+    <result column="branch_name" property="branchName" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="branch_type" property="branchType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    branch_id, branch_name, status, branch_type
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from org_branch
+    where branch_id = #{branchId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from org_branch
+    where branch_id = #{branchId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zxl.soft.branch.entity.Branch" >
+    insert into org_branch (branch_id, branch_name, status, 
+      branch_type)
+    values (#{branchId,jdbcType=VARCHAR}, #{branchName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{branchType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zxl.soft.branch.entity.Branch" >
+    insert into org_branch
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="branchId != null" >
+        branch_id,
+      </if>
+      <if test="branchName != null" >
+        branch_name,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="branchType != null" >
+        branch_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="branchId != null" >
+        #{branchId,jdbcType=VARCHAR},
+      </if>
+      <if test="branchName != null" >
+        #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="branchType != null" >
+        #{branchType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zxl.soft.branch.entity.Branch" >
+    update org_branch
+    <set >
+      <if test="branchName != null" >
+        branch_name = #{branchName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="branchType != null" >
+        branch_type = #{branchType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where branch_id = #{branchId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zxl.soft.branch.entity.Branch" >
+    update org_branch
+    set branch_name = #{branchName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      branch_type = #{branchType,jdbcType=VARCHAR}
+    where branch_id = #{branchId,jdbcType=VARCHAR}
+  </update>
+</mapper>
