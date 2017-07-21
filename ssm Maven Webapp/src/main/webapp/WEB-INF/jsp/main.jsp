@@ -68,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
  <body class="easyui-layout">
 	<div region="north" style="height: 80px;background-color: #E0EDFF;">
 		<div align="left" style="width: 80%;float: left"><img src="images/main.jpg"></div>
-		<div style="padding-top: 50px;padding-right: 20px;">当前用户：&nbsp;<font color="red" >${currentUser.userName }</font></div>
+		<div style="padding-top: 50px;padding-right: 20px;">当前用户：&nbsp;<font color="red" >${User.name }</font></div>
 		
 	</div>
 	<div region="center">

@@ -28,7 +28,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<input class="easyui-textbox" name="userId" style="width:100%" data-options="label:'用户名:',required:true">
 				</div>
 				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="password" type="password" style="width:100%" data-options="label:'用户名:',required:true">
+					<input class="easyui-textbox" name="password" type="password" style="width:100%" data-options="label:'密码:',required:true">
 				</div>
 			</form>
 			<div style="text-align:center;padding:5px 0">

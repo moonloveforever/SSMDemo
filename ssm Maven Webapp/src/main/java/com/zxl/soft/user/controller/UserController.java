@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.zxl.soft.user.entity.User;
 import com.zxl.soft.user.service.UserService;
@@ -23,15 +24,16 @@ public class UserController {
 	@RequestMapping(value = "/login.do", method = RequestMethod.POST)
 	private String login(@RequestParam("userId") String userId,
 			@RequestParam("password") String password,
-			HttpServletRequest request) {
+			HttpServletRequest request, Model Model) {
 		String page = "";
 		User u = userService.getUserById(userId);
 		if (null != u) {
 			if (password.equals(u.getPassword())) {
 				HttpSession session = request.getSession();
 				session.setAttribute("User", u);
+				Model.addAttribute("User", u);
 				System.out.println(u.getId());
-				page = "jsp/main";
+				page = "main";
 			} else {
 				page = "login";
 			}
@@ -40,9 +42,9 @@ public class UserController {
 		return page;
 	}
 	
-	@RequestMapping(value="jsp/main")
-	private String test(){
-		System.out.println("1111111111111");
-		return null;
+	@RequestMapping(value="/test")
+	public ModelAndView test(){
+	    ModelAndView mav=new ModelAndView("main");
+	    return mav;
 	}
 }
