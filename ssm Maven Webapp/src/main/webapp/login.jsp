@@ -25,19 +25,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="easyui-panel" title="欢迎登录" style="width:100%;max-width:400px;padding:30px 60px; ">
 			<form id="loginForm" method="post" action="user/login.do">
 				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="userId" style="width:100%" data-options="label:'用户名:',required:true">
+					<input class="easyui-textbox" name="userId" id="userId" style="width:100%" data-options="label:'用户名:',required:true" />
 				</div>
 				<div style="margin-bottom:20px">
-					<input class="easyui-textbox" name="password" type="password" style="width:100%" data-options="label:'密码:',required:true">
+					<input class="easyui-textbox" name="password" id="password" type="password" style="width:100%" data-options="label:'密码:',required:true" />
 				</div>
 			</form>
 			<div style="text-align:center;padding:5px 0">
-				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()" style="width:80px">登录</a>
+				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="AddHandlingFeeToRefund()" style="width:80px">登录</a>
 				<a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">重置</a>
 			</div>
 		</div>
 	</div>
 	<script>
+
+	function AddHandlingFeeToRefund()
+	        {
+				var userId = $.trim($("#userId").val());
+				var password = $.trim($("#password").val());
+				if('' == userId ||null == userId) {
+					alert("用户名不能为空！");
+					return false;
+				}
+				if('' == password ||null == password) {
+					alert("密码不能为空！");
+					return false;
+				}
+	            var AjaxURL= "<%=basePath%>";    
+	            $.post(AjaxURL+'user/login.do',{
+	            	userId:userId,
+	            	password:password
+	            },function(data,status){
+	            	if('success' == data.type) {
+	            		window.location.href = AjaxURL + 'user/success'
+	            	} else {
+	            		alert("用户名密码错误！");
+	            	}
+	            })
+	        }
+
 		function submitForm(){
 			$('#loginForm').form('submit');
 		}
